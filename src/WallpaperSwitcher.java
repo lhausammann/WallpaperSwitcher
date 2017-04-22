@@ -124,7 +124,7 @@ public class WallpaperSwitcher {
                 WallpaperSwitcher ws = new WallpaperSwitcher(new MacOsStrategy());
                 ws.cleanDirectory(ws.getHomeDirectory(), ws.getPrefix() + "-" + ".*\\.jpg");
                 ws.setWallpaper(ws.downloadImage(ws.resolveUrlWithRedirects("https://source.unsplash.com/random/1600x900")));
-                Thread.sleep(10000);
+                Thread.sleep(60000);
             }
         } catch(Exception e) {
             System.out.println("Message: " + e.getMessage());
