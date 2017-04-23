@@ -1,23 +1,30 @@
+package main.java.service;
+
 import javax.imageio.ImageIO;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by luzius on 21.04.17.
+ * Created by luzius on 23.04.17.
  */
 public class WallpaperSwitcher {
     private String prefix = "_wallpaper_";
-    
+    private String dir = "";
+
     OsStrategy switchStrategy = null;
 
-    public WallpaperSwitcher(OsStrategy switchStrategy) {
+    public WallpaperSwitcher(String directory, OsStrategy switchStrategy) {
         if (switchStrategy == null) {
+
             throw new IllegalArgumentException("Cannot be null.");
         }
 
+        if (! directory.endsWith("/")) {
+            directory = directory + "/";
+        }
+        this.dir = directory;
         this.switchStrategy = switchStrategy;
     }
 
@@ -29,11 +36,12 @@ public class WallpaperSwitcher {
     }
 
     public File downloadImage(String address) {
+        address = resolveUrlWithRedirects(address); // follow redirects
         System.out.println("Downloading image from address:" + address);
         Image image = null;
         URL url = null;
         try {
-             url = new URL(address);
+            url = new URL(address);
 
             image = ImageIO.read(url);
 
@@ -48,7 +56,7 @@ public class WallpaperSwitcher {
             in.close();
             byte[] response = out.toByteArray();
             int rnd = (int) (Math.random() * 32000);
-            String target = getHomeDirectory() + "/" + prefix + "-" + Integer.toString(rnd) + ".jpg";
+            String target = dir + prefix + "-" + Integer.toString(rnd) + ".jpg";
             FileOutputStream fos = new FileOutputStream(target);
             fos.write(response);
             fos.close();
@@ -65,30 +73,6 @@ public class WallpaperSwitcher {
 
         System.out.println("Error");
         return null;
-    }
-
-    private String getHomeDirectory() {
-        return FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
-    }
-
-    private void cleanDirectory(String dir, String regexPattern) {
-        final String regex = regexPattern;
-        final File folder = new File(dir);
-        final File[] files = folder.listFiles( new FilenameFilter() {
-            @Override
-            public boolean accept( final File dir,
-                                   final String name ) {
-                System.out.println("File is: " + dir.getAbsolutePath() + " pattern: " + regex );
-                return name.matches(regex);
-            }
-        } );
-        System.out.println(files.length);
-        for (final File file : files) {
-            System.out.println("Trying deleting folder: " + file.getAbsolutePath());
-            if (file.delete()) {
-                System.out.println("folder has benn deleted.");
-            }
-        }
     }
 
     /*
@@ -111,23 +95,9 @@ public class WallpaperSwitcher {
             return url;
 
 
-            } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            while (true) {
-                System.out.println("Getting new unsplash image and set it to background.");
-                WallpaperSwitcher ws = new WallpaperSwitcher(new MacOsStrategy());
-                ws.cleanDirectory(ws.getHomeDirectory(), ws.getPrefix() + "-" + ".*\\.jpg");
-                ws.setWallpaper(ws.downloadImage(ws.resolveUrlWithRedirects("https://source.unsplash.com/random/1600x900")));
-                Thread.sleep(60000);
-            }
-        } catch(Exception e) {
-            System.out.println("Message: " + e.getMessage());
         }
     }
 
