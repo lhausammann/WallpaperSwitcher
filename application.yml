@@ -1,0 +1,8 @@
+app:
+  test: Test
+  strategyClass: main.java.service.MacOsStrategy
+  keepRecentWallpapers: 5
+  interval: 30000
+
+
+

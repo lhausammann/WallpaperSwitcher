@@ -3,6 +3,8 @@ package main.java.service;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by luzius on 23.04.17.
@@ -32,6 +34,13 @@ public class FileUtils {
 
     public String getHomeDirectory() {
         return FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
+    }
+
+    // TODO: this belongs not really to fileUtils...
+    public Object createInstance(String className) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class<?> clazz = Class.forName(className);
+        Constructor<?> ctor = clazz.getConstructor();
+        return ctor.newInstance();
     }
 
 }

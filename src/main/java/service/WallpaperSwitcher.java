@@ -28,7 +28,7 @@ public class WallpaperSwitcher {
         this.switchStrategy = switchStrategy;
     }
 
-    public void setWallpaper(File file)
+    public void applyWallpaper(File file)
     {
         /* depending on the os, we delgate to the strategy to actually switch the wallpaper. */
         switchStrategy.switchWallPaper(file);

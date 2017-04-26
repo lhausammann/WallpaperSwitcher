@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by luzius on 21.04.17.
  *
  */
-public class MacOsStrategy implements OsStrategy {
+public class MacOsStrategy implements main.java.service.OsStrategy {
     @Override
     public void switchWallPaper(File file) {
         String as[] = {
