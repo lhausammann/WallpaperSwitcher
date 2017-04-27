@@ -1,4 +1,4 @@
-package main.java.service;
+package wallpaper.service;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,7 +9,9 @@ import java.net.URL;
 /**
  * Created by luzius on 23.04.17.
  */
+
 public class WallpaperSwitcher {
+
     private String prefix = "_wallpaper_";
     private String dir = "";
 

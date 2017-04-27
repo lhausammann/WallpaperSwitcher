@@ -1,8 +1,11 @@
 app:
   test: Test
-  strategyClass: main.java.service.MacOsStrategy
-  keepRecentWallpapers: 5
+  strategyClass: wallpaper.service.MacOsStrategy
+  keepRecentWallpapers: 5 # TODO
   interval: 30000
+  cleanup: true
+
+
 
 
 

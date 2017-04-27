@@ -1,4 +1,4 @@
-package main.java.service;
+package wallpaper.service;
 
 import java.io.File;
 

@@ -1,4 +1,7 @@
-package main.java.service;
+package wallpaper.service;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Service;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -11,6 +14,9 @@ import java.lang.reflect.InvocationTargetException;
  *
  * Clean a directory by deleting all files using a regex pattern.
  */
+
+@Service
+@ComponentScan
 public class FileUtils {
     public void cleanDirectory(String dir, String regexPattern) {
         final String regex = regexPattern;

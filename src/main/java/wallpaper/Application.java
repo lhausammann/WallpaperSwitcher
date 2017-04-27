@@ -1,11 +1,12 @@
-package Wallpaper;
+package wallpaper;
 
-import main.java.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import wallpaper.service.FileUtils;
+import wallpaper.service.WallpaperSwitcher;
 
 /**
  * Created by luzius on 21.04.17.
@@ -16,10 +17,18 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class Application implements CommandLineRunner {
     @Autowired
-    public Wallpaper.Config config;
+    private wallpaper.Config config;
+    @Autowired
+    private FileUtils fileUtils;
 
-    public void setConfig(Wallpaper.Config config) {
+    private WallpaperSwitcher switcher;
+
+    public void setConfig(wallpaper.Config config) {
         this.config = config;
+    }
+
+    public void setUtils(FileUtils utils) {
+        this.fileUtils = utils;
     }
 
     public static void main(String[] args) {
@@ -30,13 +39,14 @@ public class Application implements CommandLineRunner {
         try {
             Config c = config;
             System.out.println("Test:" + c + c.getTest());
-            final FileUtils files = new main.java.service.FileUtils();
-            String homeDir = files.getHomeDirectory();
+            String homeDir = fileUtils.getHomeDirectory();
             while (true) {
                 System.out.println("Getting new unsplash image and set it to background.");
-                main.java.service.WallpaperSwitcher ws = new main.java.service.WallpaperSwitcher(homeDir, config.strategy);
+                WallpaperSwitcher ws = c.createSwitcher(homeDir);
                 // do delete already downloaded files.
-                files.cleanDirectory(homeDir, ws.getPrefix() + "-" + ".*\\.jpg");
+                if (c.cleanup)
+                    fileUtils.cleanDirectory(homeDir, ws.getPrefix() + "-" + ".*\\.jpg");
+
                 ws.applyWallpaper(ws.downloadImage("https://source.unsplash.com/random/1600x900"));
                 Thread.sleep(config.interval);
             }

@@ -1,4 +1,4 @@
-package main.java.service;
+package wallpaper.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by luzius on 21.04.17.
  *
  */
-public class MacOsStrategy implements main.java.service.OsStrategy {
+public class MacOsStrategy implements OsStrategy {
     @Override
     public void switchWallPaper(File file) {
         String as[] = {
