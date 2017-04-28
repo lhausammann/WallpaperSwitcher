@@ -2,3 +2,7 @@ out
 .Idea
 .idea/*
 *.iml
+*.ipr
+*.iws
+build/*
+.gradle/*

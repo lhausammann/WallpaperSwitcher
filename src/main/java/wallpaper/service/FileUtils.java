@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by luzius on 23.04.17.
@@ -32,6 +34,37 @@ public class FileUtils {
         System.out.println(files.length);
         for (final File file : files) {
             System.out.println("Trying deleting folder: " + file.getAbsolutePath());
+            if (file.delete()) {
+                System.out.println("folder has benn deleted.");
+            }
+        }
+    }
+
+    /**
+     * Keeps the keepNewest newest files
+     * @param dir The dir to delete files
+     * @param regex The regex to match
+     * @param keepNewest The n newest files to keep
+     */
+    public void cleanDirectoryAndKeepNewest(String dir, final String regex, int keepNewest) {
+        final File folder = new File(dir);
+        final File[] files = folder.listFiles( new FilenameFilter() {
+            @Override
+            public boolean accept( final File dir,
+                                   final String name ) {
+                System.out.println("File is: " + dir.getAbsolutePath() + " pattern: " + regex );
+                return name.matches(regex);
+            }
+        } );
+
+        Arrays.sort(files, new Comparator<File>(){
+            public int compare(File a, File b) {
+                return Long.valueOf(b.lastModified()).compareTo(a.lastModified());
+            }});
+
+        for (int i = keepNewest; i < files.length; i++) {
+            final File file = files[i];
+            System.out.println("Trying deleting file: " + file.getAbsolutePath());
             if (file.delete()) {
                 System.out.println("folder has benn deleted.");
             }

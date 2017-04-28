@@ -26,12 +26,17 @@ public class Config {
     public int interval = 5000;
     public OsStrategy strategy;
     public boolean cleanup = false;
+    public int keepNewestFiles = 0;
 
     private Map<String,WallpaperSwitcher> switchers = new HashMap<String, WallpaperSwitcher>();
 
     public String getTest() {
         System.out.println("gettint test!");
         return test;
+    }
+
+    public void setKeepNewestFiles(int i) {
+        keepNewestFiles = i;
     }
 
     public void setInterval(int interval) {

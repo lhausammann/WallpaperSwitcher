@@ -45,7 +45,7 @@ public class Application implements CommandLineRunner {
                 WallpaperSwitcher ws = c.createSwitcher(homeDir);
                 // do delete already downloaded files.
                 if (c.cleanup)
-                    fileUtils.cleanDirectory(homeDir, ws.getPrefix() + "-" + ".*\\.jpg");
+                    fileUtils.cleanDirectoryAndKeepNewest(homeDir, ws.getPrefix() + "-" + ".*\\.jpg", c.keepNewestFiles);
 
                 ws.applyWallpaper(ws.downloadImage("https://source.unsplash.com/random/1600x900"));
                 Thread.sleep(config.interval);

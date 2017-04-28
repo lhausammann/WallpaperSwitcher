@@ -1,8 +1,8 @@
 app:
   test: Test
   strategyClass: wallpaper.service.MacOsStrategy
-  keepRecentWallpapers: 5 # TODO
-  interval: 30000
+  keepNewestFiles: 5 # TODO
+  interval: 1000
   cleanup: true
 
 
