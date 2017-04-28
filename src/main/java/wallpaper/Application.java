@@ -12,7 +12,6 @@ import wallpaper.service.WallpaperSwitcher;
  * Created by luzius on 21.04.17.
  */
 
-
 @SpringBootApplication
 @Controller
 public class Application implements CommandLineRunner {
@@ -38,15 +37,15 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
         try {
             Config c = config;
-            System.out.println("Test:" + c + c.getTest());
             String homeDir = fileUtils.getHomeDirectory();
             while (true) {
                 System.out.println("Getting new unsplash image and set it to background.");
                 WallpaperSwitcher ws = c.createSwitcher(homeDir);
                 // do delete already downloaded files.
-                if (c.cleanup)
-                    fileUtils.cleanDirectoryAndKeepNewest(homeDir, ws.getPrefix() + "-" + ".*\\.jpg", c.keepNewestFiles);
-
+                if (c.cleanup != null) {
+                    fileUtils.cleanDirectoryAndKeepNewest(homeDir, ws.getPrefix() + "-" + ".*\\.jpg",
+                            c.cleanup.getKeepNewestFiles());
+                }
                 ws.applyWallpaper(ws.downloadImage("https://source.unsplash.com/random/1600x900"));
                 Thread.sleep(config.interval);
             }

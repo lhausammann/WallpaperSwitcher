@@ -2,7 +2,6 @@ package wallpaper;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import wallpaper.service.FileUtils;
 import wallpaper.service.OsStrategy;
@@ -17,36 +16,18 @@ import java.util.Map;
 
 @Component
 @EnableConfigurationProperties
-@ComponentScan("main.java.service, wallpaper")
 @ConfigurationProperties(prefix="app")
 public class Config {
-
-    public String test;
     public String strategyClass;
     public int interval = 5000;
     public OsStrategy strategy;
-    public boolean cleanup = false;
-    public int keepNewestFiles = 0;
+    public Cleanup cleanup = new Cleanup();
 
     private Map<String,WallpaperSwitcher> switchers = new HashMap<String, WallpaperSwitcher>();
-
-    public String getTest() {
-        System.out.println("gettint test!");
-        return test;
-    }
-
-    public void setKeepNewestFiles(int i) {
-        keepNewestFiles = i;
-    }
 
     public void setInterval(int interval) {
         System.out.println("Setting timeout to: " + interval);
         this.interval = interval;
-    }
-
-    public void setCleanup(boolean cleanup) {
-        System.out.println("Cleanup is: " + cleanup);
-        this.cleanup = cleanup;
     }
 
     public void setStrategyClass(String name) {
@@ -58,11 +39,12 @@ public class Config {
         }
     }
 
+    public void setCleanup(Cleanup cleanup) {
+        this.cleanup = cleanup;
+    }
 
-
-    public void setTest(String test) {
-        System.out.println("setting test!" + test);
-        this.test = test;
+    public Cleanup getCleanup() {
+        return cleanup;
     }
 
     /*
@@ -75,6 +57,22 @@ public class Config {
             return s;
         }
         return switchers.get(homeDir);
+    }
+
+
+    public  static class Cleanup {
+        private int keepNewestFiles = 0;
+
+        public void setKeepNewestFiles(int i) {
+            System.out.println("newest files: " + i);
+            keepNewestFiles = i;
+        }
+
+        public int getKeepNewestFiles() {
+            System.out.println("newest files: " + keepNewestFiles);
+
+            return keepNewestFiles;
+        }
     }
 
 }
