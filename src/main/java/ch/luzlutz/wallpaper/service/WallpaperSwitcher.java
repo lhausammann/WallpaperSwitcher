@@ -1,5 +1,8 @@
 package ch.luzlutz.wallpaper.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
@@ -14,6 +17,8 @@ public class WallpaperSwitcher {
 
     private String prefix = "_wallpaper_";
     private String dir = "";
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
 
     OsStrategy switchStrategy = null;
 
@@ -39,7 +44,7 @@ public class WallpaperSwitcher {
 
     public File downloadImage(String address) {
         address = resolveUrlWithRedirects(address); // follow redirects
-        System.out.println("Downloading image from address:" + address);
+        log.info("Downloading image from address:" + address);
         Image image = null;
         URL url = null;
         try {
@@ -64,16 +69,15 @@ public class WallpaperSwitcher {
             fos.close();
 
             File f  = new File(target);
-            System.out.println("Saving to:" + f.getAbsolutePath());
+            log.info("Saving to:" + f.getAbsolutePath());
             return f;
         }
 
         catch (IOException e) {
-            e.printStackTrace();
 
+            log.error(e.getMessage(), e);
         }
 
-        System.out.println("Error");
         return null;
     }
 
@@ -93,12 +97,12 @@ public class WallpaperSwitcher {
                 String redirectUrl = con.getHeaderField("Location");
                 return resolveUrlWithRedirects(redirectUrl);
             }
-            System.out.println("Resolved url is:" +url.toString());
+            log.info("Resolved url is:" +url.toString());
             return url;
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Exception while resolving url: " + url, e);
             return null;
         }
     }

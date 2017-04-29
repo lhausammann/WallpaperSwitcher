@@ -1,5 +1,7 @@
 package ch.luzlutz.wallpaper.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.Comparator;
 @Service
 @ComponentScan
 public class FileUtils {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
     public void cleanDirectory(String dir, String regexPattern) {
@@ -29,15 +32,15 @@ public class FileUtils {
             @Override
             public boolean accept( final File dir,
                                    final String name ) {
-                System.out.println("File is: " + dir.getAbsolutePath() + " pattern: " + regex );
+                log.debug("File is: " + dir.getAbsolutePath() + " pattern: " + regex );
                 return name.matches(regex);
             }
         } );
-        System.out.println(files.length);
+        log.debug("" + files.length);
         for (final File file : files) {
-            System.out.println("Trying deleting folder: " + file.getAbsolutePath());
+            log.info("Trying deleting folder: " + file.getAbsolutePath());
             if (file.delete()) {
-                System.out.println("folder has benn deleted.");
+                log.info("folder has benn deleted.");
             }
         }
     }
@@ -54,7 +57,7 @@ public class FileUtils {
             @Override
             public boolean accept( final File dir,
                                    final String name ) {
-                System.out.println("File is: " + dir.getAbsolutePath() + " pattern: " + regex );
+                log.info("File is: " + dir.getAbsolutePath() + " pattern: " + regex );
                 return name.matches(regex);
             }
         } );
@@ -66,9 +69,9 @@ public class FileUtils {
 
         for (int i = keepNewest; i < files.length; i++) {
             final File file = files[i];
-            System.out.println("Trying deleting file: " + file.getAbsolutePath());
+            log.info("Trying deleting file: " + file.getAbsolutePath());
             if (file.delete()) {
-                System.out.println("folder has been deleted.");
+                log.info("folder has been deleted.");
             }
         }
     }
