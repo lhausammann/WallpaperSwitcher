@@ -1,5 +1,8 @@
+logging:
+  level.ch.luzlutz: info
+
 app:
-  strategyClass: wallpaper.service.MacOsStrategy
+  strategyClass: ch.luzlutz.wallpaper.service.MacOsStrategy
   interval: 1000
   cleanup:
     keepNewestFiles: 5

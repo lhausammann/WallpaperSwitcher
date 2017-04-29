@@ -1,12 +1,14 @@
-package wallpaper;
+package ch.luzlutz.wallpaper;
 
+import ch.luzlutz.wallpaper.service.FileUtils;
+import ch.luzlutz.wallpaper.service.WallpaperSwitcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import wallpaper.service.FileUtils;
-import wallpaper.service.WallpaperSwitcher;
 
 /**
  * Created by luzius on 21.04.17.
@@ -16,13 +18,16 @@ import wallpaper.service.WallpaperSwitcher;
 @Controller
 public class Application implements CommandLineRunner {
     @Autowired
-    private wallpaper.Config config;
+    private Config config;
     @Autowired
     private FileUtils fileUtils;
 
     private WallpaperSwitcher switcher;
 
-    public void setConfig(wallpaper.Config config) {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+
+    public void setConfig(Config config) {
         this.config = config;
     }
 
@@ -39,7 +44,7 @@ public class Application implements CommandLineRunner {
             Config c = config;
             String homeDir = fileUtils.getHomeDirectory();
             while (true) {
-                System.out.println("Getting new unsplash image and set it to background.");
+                log.info("Getting new unsplash image and set it to background.");
                 WallpaperSwitcher ws = c.createSwitcher(homeDir);
                 // do delete already downloaded files.
                 if (c.cleanup != null) {
@@ -50,7 +55,7 @@ public class Application implements CommandLineRunner {
                 Thread.sleep(config.interval);
             }
         } catch (InterruptedException e) {
-            System.out.println("Message: " + e.getMessage());
+            log.error("Message: " + e.getMessage());
         }
     }
 

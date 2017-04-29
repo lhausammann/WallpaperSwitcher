@@ -1,11 +1,11 @@
-package wallpaper;
+package ch.luzlutz.wallpaper;
 
+import ch.luzlutz.wallpaper.service.OsStrategy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
-import wallpaper.service.FileUtils;
-import wallpaper.service.OsStrategy;
-import wallpaper.service.WallpaperSwitcher;
+import ch.luzlutz.wallpaper.service.FileUtils;
+import ch.luzlutz.wallpaper.service.WallpaperSwitcher;
 
 import java.util.HashMap;
 import java.util.Map;

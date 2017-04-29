@@ -1,4 +1,4 @@
-package wallpaper.service;
+package ch.luzlutz.wallpaper.service;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

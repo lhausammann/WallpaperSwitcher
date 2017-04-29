@@ -1,4 +1,4 @@
-package wallpaper.service;
+package ch.luzlutz.wallpaper.service;
 
 import java.io.File;
 import java.io.IOException;

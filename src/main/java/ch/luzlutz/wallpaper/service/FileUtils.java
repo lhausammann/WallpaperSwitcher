@@ -1,4 +1,4 @@
-package wallpaper.service;
+package ch.luzlutz.wallpaper.service;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,8 @@ import java.util.Comparator;
 @Service
 @ComponentScan
 public class FileUtils {
+
+
     public void cleanDirectory(String dir, String regexPattern) {
         final String regex = regexPattern;
         final File folder = new File(dir);
@@ -66,7 +68,7 @@ public class FileUtils {
             final File file = files[i];
             System.out.println("Trying deleting file: " + file.getAbsolutePath());
             if (file.delete()) {
-                System.out.println("folder has benn deleted.");
+                System.out.println("folder has been deleted.");
             }
         }
     }
