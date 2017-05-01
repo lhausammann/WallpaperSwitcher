@@ -6,6 +6,10 @@ app:
   interval: 1000
   cleanup:
     keepNewestFiles: 5
+  download:
+    downloadClass: ch.luzlutz.service.rest.UnsplashImage
+    endpoint: https://source.unsplash.com/random
+    prefix: _wallpaper_
 
 
 

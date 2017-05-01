@@ -51,7 +51,8 @@ public class Application implements CommandLineRunner {
                     fileUtils.cleanDirectoryAndKeepNewest(homeDir, ws.getPrefix() + "-" + ".*\\.jpg",
                             c.cleanup.getKeepNewestFiles());
                 }
-                ws.applyWallpaper(ws.downloadImage("https://source.unsplash.com/random/1600x900"));
+
+                ws.applyWallpaper(ws.downloadImage());
                 Thread.sleep(config.interval);
             }
         } catch (InterruptedException e) {
