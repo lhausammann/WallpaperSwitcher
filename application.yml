@@ -1,16 +1,32 @@
 logging:
-  level.ch.luzlutz: info
+  level.ch.luzlutz: error
 
 app:
   strategyClass: ch.luzlutz.wallpaper.service.MacOsStrategy
-  interval: 1000
-  cleanup:
+  interval: 5000
+  activeDownloadName: flickr
+  cleanup:git
     keepNewestFiles: 5
-  download:
+  downloads:
+    - download:
+      name: unsplash
+      downloadClass: ch.luzlutz.service.rest.UnsplashImage
+      endpoint: https://source.unsplash.com/random?
+      targetDir: "~"
+      prefix: _wallpaper_
+    - download:
+      name: flickr
+      downloadClass: ch.luzlutz.service.rest.FlickrImage
+      endpoint: https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${secret.flickr.api_key}&user_id=${secret.flickr.user_id}%40N05&format=json&nojsoncallback=1&a=$a
+      targetDir: "~"
+      prefix: _wallpaper2_
 
-    downloadClass: ch.luzlutz.service.rest.UnsplashImage
-    endpoint: https://source.unsplash.com/random
-    prefix: _wallpaper_
+
+
+
+
+
+
 
 
 

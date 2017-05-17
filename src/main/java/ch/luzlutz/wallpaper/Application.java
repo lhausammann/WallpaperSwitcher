@@ -42,7 +42,8 @@ public class Application implements CommandLineRunner {
     public void run(String... args) {
         try {
             Config c = config;
-            String homeDir = fileUtils.getHomeDirectory();
+            // TODO: move the homeDir to the service.
+            String homeDir = fileUtils.resolve(config.getActiveDownload().getTargetDir());
             while (true) {
                 log.info("Getting new unsplash image and set it to background.");
                 WallpaperSwitcher ws = c.createSwitcher(homeDir);

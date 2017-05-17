@@ -80,6 +80,16 @@ public class FileUtils {
         return FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
     }
 
+    public String resolve(String path) {
+        log.info("path is: " + path);
+        if (path.trim().startsWith("~")) {
+
+            return getHomeDirectory() + File.separator + path.substring(1);
+        }
+
+        return path;
+    }
+
     // TODO: this belongs not really to fileUtils...
     public Object createInstance(String className) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<?> clazz = Class.forName(className);

@@ -1,6 +1,7 @@
 package ch.luzlutz.wallpaper.service;
 
 import ch.luzlutz.service.rest.DownloadService;
+import ch.luzlutz.wallpaper.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,7 @@ public class WallpaperSwitcher {
 
     OsStrategy switchStrategy = null;
 
-    public WallpaperSwitcher(String directory, OsStrategy switchStrategy, DownloadService downloadService) {
+    public WallpaperSwitcher(String directory, OsStrategy switchStrategy, Config.Download active) {
         if (switchStrategy == null) {
 
             throw new IllegalArgumentException("Cannot be null.");
@@ -28,12 +29,13 @@ public class WallpaperSwitcher {
 
 
 
-        prefix = downloadService.getPrefix();
+        prefix = active.getPrefix();
 
         if (! directory.endsWith("/")) {
             directory = directory + "/";
         }
-        this.downloadService = downloadService;
+
+        this.downloadService = active.createInstance();
         this.dir = directory;
         this.switchStrategy = switchStrategy;
     }

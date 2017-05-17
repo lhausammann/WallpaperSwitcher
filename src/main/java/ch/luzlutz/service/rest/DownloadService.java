@@ -14,7 +14,6 @@ public interface DownloadService {
 
     public String getPrefix();
 
-
     public void setParameters(Map<String, String> properties);
 
     /**
