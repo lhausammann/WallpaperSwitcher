@@ -1,6 +1,6 @@
 WallpaperSwitcher
 =================
-Shows a wallaper from unsplash every x seconds.
+Shows a wallaper from unsplash or flickr every x seconds.
 Currently only on Mac OsX.
 
 Settings (application.yml)
@@ -22,6 +22,3 @@ Run (gradle wrapper)
 ----
 cd <wallpaperSwitcherDirectory>
 ./gradlew bootRun
-
-
-
