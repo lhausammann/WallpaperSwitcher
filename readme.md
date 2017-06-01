@@ -3,11 +3,12 @@ WallpaperSwitcher
 Shows a wallaper from unsplash every x seconds.
 Currently only on Mac OsX.
 
-Settings
+Settings (application.yml)
 ----
 ```yml
-- activeDownloadName: flickr | unsplash
-- interval: time in milliseconds to change the background image.
+app:
+  activeDownloadName: flickr | unsplash
+  interval: time in milliseconds to change the background image.
 ```
 Unsplash works out of the box. FLickr needs additional settings (rename config/applicationSecret.yml to config/application.yml):
 ```yml
