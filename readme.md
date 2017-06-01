@@ -13,7 +13,8 @@ Unsplash works out of the box. FLickr needs additional settings (rename config/a
 secret:
   flickr:
     user_id: <your user id>
-    api_key: <your api key>```   
+    api_key: <your api key>
+```   
 
 Run (gradle wrapper)
 ----
