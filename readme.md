@@ -5,9 +5,10 @@ Currently only on Mac OsX.
 
 Settings
 ----
+```yml
 - activeDownloadName: flickr | unsplash
 - interval: time in milliseconds to change the background image.
-
+```
 Unsplash works out of the box. FLickr needs additional settings (rename config/applicationSecret.yml to config/application.yml):
 ```yml
 secret:
