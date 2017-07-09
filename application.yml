@@ -5,7 +5,6 @@ app:
   strategyClass: ch.luzlutz.wallpaper.service.MacOsStrategy
   interval: 5000
   activeDownloadName: flickr
-  cleanup:git
     keepNewestFiles: 5
   downloads:
     - download:
