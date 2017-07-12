@@ -4,8 +4,8 @@ logging:
 app:
   strategyClass: ch.luzlutz.wallpaper.service.MacOsStrategy
   interval: 5000
-  activeDownloadName: flickr
-    keepNewestFiles: 5
+  activeDownloadName: unsplash
+  keepNewestFiles: 5
   downloads:
     - download:
       name: unsplash
